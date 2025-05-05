@@ -9,11 +9,8 @@ import (
 
 func main() {
 	reader := kafka.NewReader(kafka.ReaderConfig{
-		Brokers:  []string{"localhost:9092"},
-		Topic:    "test-topic",
-		GroupID:  "kafka-go-group",
-		MinBytes: 1,
-		MaxBytes: 10e6,
+		Brokers: []string{"localhost:9092"},
+		Topic:   "test-topic",
 	})
 
 	defer reader.Close()
