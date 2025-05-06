@@ -1,0 +1,38 @@
+> kafka consist of topic, producer, and consumer
+> the producer and consumer should communicate in the same topic
+> topic will stored the message that sent by producer
+> The topic structure is similar to a log, where new messages are appended to the end.
+> If the consumer doesn't define the group ID, Kafka will assign one randomly.
+> message structure:
+    - topic     : The name of the Kafka topic to which the message is sent.
+    - partition : The specific partition within the topic where the message is stored.
+    - header    : Optional metadata in the form of key-value pairs. Useful for things like tracing IDs, content types, etc.
+    - key       : A key used to determine the target partition. It's optional and is in byte format.
+    - value     : The main content or payload of the message, also in byte format. It’s typically encoded (e.g., JSON, Avro, Protobuf).
+    - offset    : A unique ID within the partition that identifies the position of the message.
+    - timestamp : The time the message was produced or written to Kafka (depending on configuration).
+> the key is optional but,:
+    - not defined
+        > it uses a round-robin strategy to distribute messages evenly across all partitions.
+        > No Ordering Guarantee (Kafka only guarantees ordering within a single partition.)
+        > Better load balancing, but no order
+    - defined same value
+        > Messages go to same partition and are stored as new records
+        > Order is preserved per key
+    - defined different value
+        > Likely different partitions (Partition chosen by key hash)
+        > ordering is guaranteed within each partition, and therefore per key
+            - ex [
+                {
+                    key:key1,
+                    value:123
+                },{
+                    key:key1,
+                    value:1234
+                },{
+                    key:key2,
+                    value:12366
+                },
+            ]
+            - the ordered will happended only on the key1
+        
