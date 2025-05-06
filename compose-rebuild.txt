@@ -1,0 +1,7 @@
+docker-compose down --volumes
+sudo rm -rf ./dockervol/kafka
+mkdir -p ./dockervol/kafka
+sudo chown -R 1001:1001 ./dockervol/kafka
+
+
+>> delete the dockervol
